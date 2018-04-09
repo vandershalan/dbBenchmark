@@ -10,7 +10,8 @@ public class RfidEvent {
 	public RfidEvent() {
 	}
 
-	public RfidEvent(String epc, String itemId, int tokenSN) {
+	public RfidEvent(int eventId, String epc, String itemId, int tokenSN) {
+		this.eventId = eventId;
 		this.epc = epc;
 		this.itemId = itemId;
 		this.tokenSN = tokenSN;

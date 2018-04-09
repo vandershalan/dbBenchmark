@@ -22,23 +22,25 @@ public class RfidDao {
 
 	@Async
 	public void addEvent(RfidEvent event) {
-		String sql = "INSERT INTO rfid_events (epc, item_id, token_sn) values (?, ?, ?)";
-		jdbcTemplate.update(sql, event.getEpc(), event.getItemId(), event.getTokenSN());
+		String sql = "INSERT INTO rfid_events (event_id, epc, item_id, token_sn) values (?, ?, ?, ?)";
+		jdbcTemplate.update(sql, event.getEventId(), event.getEpc(), event.getItemId(), event.getTokenSN());
 	}
 
+	@Async
 	public void addEventByPreparedStatement(RfidEvent event) {
-		String sql = "INSERT INTO rfid_events (epc, item_id, token_sn) values (?, ?, ?)";
-		PreparedStatementCallback<Boolean> psc = new PreparedStatementCallback<Boolean>(){  
-		    @Override  
-		    public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {  
-		        ps.setString(1, event.getEpc());  
-		        ps.setString(2,event.getItemId());  
-		        ps.setInt(3,event.getTokenSN());  
-		        return ps.execute();  
-		    }  
+		String sql = "INSERT INTO rfid_events (event_id, epc, item_id, token_sn) values (?, ?, ?, ?)";
+		PreparedStatementCallback<Boolean> psc = new PreparedStatementCallback<Boolean>() {
+			@Override
+			public Boolean doInPreparedStatement(PreparedStatement ps) throws SQLException, DataAccessException {
+				ps.setInt(1, event.getEventId());
+				ps.setString(2, event.getEpc());
+				ps.setString(3, event.getItemId());
+				ps.setInt(4, event.getTokenSN());
+				return ps.execute();
+			}
 		};
-		
-		jdbcTemplate.execute(sql, psc); 
+
+		jdbcTemplate.execute(sql, psc);
 	}
 
 	public RfidEvent getEvent(int rfidEventId) {

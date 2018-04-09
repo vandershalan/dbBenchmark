@@ -19,8 +19,9 @@ public class BenchmarkService {
 		log.info("RFID Max SN before test: " + sn);
 
 		for (int i = 0; i < count; i++) {
-			RfidEvent event = new RfidEvent("123456789ABCDEF" + ++sn, "EAN" + sn, sn);
-			dao.addEvent(event);
+			RfidEvent event = new RfidEvent(++sn, "123456789ABCDEF" + sn, "EAN" + sn, sn);
+			dao.addEventByPreparedStatement(event);
+			//dao.addEvent(event);
 		}
 
 		log.info("RFID Events after test: " + dao.getEventsCount());

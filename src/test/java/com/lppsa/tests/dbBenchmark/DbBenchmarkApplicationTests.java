@@ -37,7 +37,7 @@ public class DbBenchmarkApplicationTests {
 		long startTime = System.currentTimeMillis();
 
 		for (int i = 0; i < count; i++) {
-			RfidEvent event = new RfidEvent("123456789ABCDEF" + ++sn, "EAN" + sn, sn);
+			RfidEvent event = new RfidEvent(++sn, "123456789ABCDEF" + sn, "EAN" + sn, sn);
 			dao.addEventByPreparedStatement(event);
 		}
 

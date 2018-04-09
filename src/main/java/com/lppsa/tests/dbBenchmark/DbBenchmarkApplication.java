@@ -27,16 +27,15 @@ public class DbBenchmarkApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		int count = 100000;
+		int count = 1000000;
 		long startTime = System.currentTimeMillis();
 
 		benchmarkService.BenchmarkInserts(count);
 
-
 		ThreadPoolTaskExecutor exec = (ThreadPoolTaskExecutor) asyncExecutor();
 		do {
 			log.info("Queue size: " + exec.getThreadPoolExecutor().getQueue().size());
-			Thread.sleep(100);
+			Thread.sleep(1000);
 		} while (exec.getThreadPoolExecutor().getQueue().size() > 1);
 		
 		long stopTime = System.currentTimeMillis();
@@ -50,10 +49,10 @@ public class DbBenchmarkApplication implements CommandLineRunner {
 	@Bean
     public Executor asyncExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(50);
-        executor.setMaxPoolSize(50);
+        executor.setCorePoolSize(64);
+        executor.setMaxPoolSize(64);
         executor.setWaitForTasksToCompleteOnShutdown(true);
-        executor.setQueueCapacity(1000000);
+        executor.setQueueCapacity(2000000);
         executor.setThreadNamePrefix("dbBench-");
         executor.initialize();
         return executor;
