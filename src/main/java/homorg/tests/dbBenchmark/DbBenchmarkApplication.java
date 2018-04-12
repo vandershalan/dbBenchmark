@@ -1,4 +1,4 @@
-package com.lppsa.tests.dbBenchmark;
+package homorg.tests.dbBenchmark;
 
 import java.util.concurrent.Executor;
 
@@ -27,7 +27,7 @@ public class DbBenchmarkApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		
-		int count = 1000000;
+		int count = 100000;
 		long startTime = System.currentTimeMillis();
 
 		benchmarkService.BenchmarkInserts(count);

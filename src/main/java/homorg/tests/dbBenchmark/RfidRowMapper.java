@@ -1,4 +1,4 @@
-package com.lppsa.tests.dbBenchmark;
+package homorg.tests.dbBenchmark;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
