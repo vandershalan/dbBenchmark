@@ -1,4 +1,4 @@
-package com.lppsa.tests.dbBenchmark;
+package homorg.tests.dbBenchmark;
 
 import java.util.List;
 
@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import homorg.tests.dbBenchmark.RfidDao;
+import homorg.tests.dbBenchmark.RfidEvent;
 import lombok.extern.slf4j.Slf4j;
 
 @RunWith(SpringRunner.class)

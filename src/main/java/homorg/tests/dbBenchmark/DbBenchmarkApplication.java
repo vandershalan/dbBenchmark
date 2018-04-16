@@ -1,4 +1,4 @@
-package com.lppsa.tests.dbBenchmark;
+package homorg.tests.dbBenchmark;
 
 import java.util.concurrent.Executor;
 
@@ -33,7 +33,7 @@ public class DbBenchmarkApplication implements CommandLineRunner {
 
 			log.info("==========================================================");
 			log.info("Iteration no: " + i);
-			
+
 			long startTime = System.currentTimeMillis();
 
 			benchmarkService.BenchmarkInserts(count);
@@ -49,7 +49,7 @@ public class DbBenchmarkApplication implements CommandLineRunner {
 
 			log.info("Test took: " + (time) + " ms");
 			log.info("Inserts per second: " + (double) count / time * 1000);
-			
+
 			log.info("End of iteration no: " + i);
 			log.info("==========================================================");
 		}
