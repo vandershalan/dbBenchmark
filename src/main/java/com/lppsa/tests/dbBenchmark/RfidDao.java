@@ -67,6 +67,10 @@ public class RfidDao {
 
 	public int getMaxSN() {
 		String sql = "SELECT MAX(token_sn) FROM rfid_events";
-		return jdbcTemplate.queryForObject(sql, Integer.class);
+		Integer maxSN = jdbcTemplate.queryForObject(sql, Integer.class);
+		if (maxSN == null) {
+			maxSN = 0;
+		}
+		return maxSN;
 	}
 }

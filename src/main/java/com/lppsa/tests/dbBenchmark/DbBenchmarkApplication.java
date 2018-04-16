@@ -26,36 +26,45 @@ public class DbBenchmarkApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		
+
 		int count = 1000000;
-		long startTime = System.currentTimeMillis();
 
-		benchmarkService.BenchmarkInserts(count);
+		for (int i = 0; i < 100; i++) {
 
-		ThreadPoolTaskExecutor exec = (ThreadPoolTaskExecutor) asyncExecutor();
-		do {
-			log.info("Queue size: " + exec.getThreadPoolExecutor().getQueue().size());
-			Thread.sleep(1000);
-		} while (exec.getThreadPoolExecutor().getQueue().size() > 1);
-		
-		long stopTime = System.currentTimeMillis();
-		long time = stopTime - startTime;
+			log.info("==========================================================");
+			log.info("Iteration no: " + i);
+			
+			long startTime = System.currentTimeMillis();
 
-		log.info("Test took: " + (time) + " ms");
-		log.info("Inserts per second: " + (double)count / time * 1000);
-		
+			benchmarkService.BenchmarkInserts(count);
+
+			ThreadPoolTaskExecutor exec = (ThreadPoolTaskExecutor) asyncExecutor();
+			do {
+				log.info("Queue size: " + exec.getThreadPoolExecutor().getQueue().size());
+				Thread.sleep(1000);
+			} while (exec.getThreadPoolExecutor().getQueue().size() > 1);
+
+			long stopTime = System.currentTimeMillis();
+			long time = stopTime - startTime;
+
+			log.info("Test took: " + (time) + " ms");
+			log.info("Inserts per second: " + (double) count / time * 1000);
+			
+			log.info("End of iteration no: " + i);
+			log.info("==========================================================");
+		}
 	}
-	
+
 	@Bean
-    public Executor asyncExecutor() {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
-        executor.setCorePoolSize(64);
-        executor.setMaxPoolSize(64);
-        executor.setWaitForTasksToCompleteOnShutdown(true);
-        executor.setQueueCapacity(2000000);
-        executor.setThreadNamePrefix("dbBench-");
-        executor.initialize();
-        return executor;
-    }
+	public Executor asyncExecutor() {
+		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(64);
+		executor.setMaxPoolSize(64);
+		executor.setWaitForTasksToCompleteOnShutdown(true);
+		executor.setQueueCapacity(2000000);
+		executor.setThreadNamePrefix("dbBench-");
+		executor.initialize();
+		return executor;
+	}
 
 }
